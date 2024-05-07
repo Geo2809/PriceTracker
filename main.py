@@ -13,4 +13,6 @@ r = requests.get(url, headers=headers)
 
 soup = BeautifulSoup(r.text, 'lxml')
 product_name = soup.find('h1', class_='page-title').text.strip()
+price = soup.find('p', class_='product-new-price has-deal').text.strip()[:-7]
+price = float(price)
 
