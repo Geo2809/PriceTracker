@@ -25,6 +25,7 @@ class Link(models.Model):
                 price_diff = price-old_price
                 self.price_difference = price_diff
                 self.old_price = old_price
+                self.current_price = price
         else:
             self.old_price = 0
             self.price_difference = 0
