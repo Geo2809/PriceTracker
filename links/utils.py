@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import lxml
+from decimal import Decimal
 
 def get_link_data(url):
     headers = {
@@ -12,7 +13,9 @@ def get_link_data(url):
     r = requests.get(url, headers=headers)
 
     soup = BeautifulSoup(r.text, 'lxml')
-    product_name = soup.find('h1', class_='page-title').text.strip()
-    price = soup.find('p', class_='product-new-price has-deal').text.strip()[:-7]
-    price = float(price)
-    return product_name, price
+    name = soup.find('h1', class_='page-title').text.strip()
+    price = soup.find('p', class_='product-new-price').text.strip()[:-7]
+    price = Decimal(price)
+    return name, price
+
+
