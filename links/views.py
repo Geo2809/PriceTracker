@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Link
 from .forms import LinkModelForm
+from django.views.generic import DeleteView
+from django.urls import reverse_lazy
 
 def home_view(request):
     no_of_discounted_items = 0
@@ -14,8 +16,8 @@ def home_view(request):
             error = "Couldn't get the name or the price!"
         except:
             error = 'Something went wrong!'
-
-    form = LinkModelForm(request)
+    
+    form = LinkModelForm()
     qs = Link.objects.all()
     no_of_items = qs.count()
 
@@ -34,3 +36,8 @@ def home_view(request):
         'error': error
     }
     return render(request, 'links/home.html', context=context)
+
+class LinkDeleteView(DeleteView):
+    model = Link
+    template_name = 'links/confirm_del.html'
+    success_url = reverse_lazy('home')
