@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load crispy_forms_tags %}
+{% load colorize %}
 
 {% block content %}
 
@@ -46,7 +47,7 @@
     <div class='blockquote'>
         <div>Current price: {{ item.current_price }}</div>
         <div>Old price: {{ item.old_price }}</div>
-        <div>Price difference: {{ item.price_difference }}</div>
+        <div>Price difference: {{ item.price_difference|colorize }}</div>
         <div>Link: <a href="{{ item.url }}">{{ item.url }}</a></div>
     </div>
   </div>
