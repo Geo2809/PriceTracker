@@ -4,9 +4,9 @@ from .utils import get_link_data
 class Link(models.Model):
     name = models.CharField(max_length=255, blank=True)
     url = models.URLField()
-    current_price = models.DecimalField(max_digits=10, decimal_places=3, blank=True)
-    old_price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-    price_difference = models.DecimalField(max_digits=10, decimal_places=3, default=0)
+    current_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price_difference = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -25,12 +25,11 @@ class Link(models.Model):
                 price_diff = price-old_price
                 self.price_difference = price_diff
                 self.old_price = old_price
-                self.current_price = price
         else:
             self.old_price = 0
             self.price_difference = 0
-            self.name = name
-            self.current_price = price
+        self.name = name
+        self.current_price = price
         super().save(*args, **kwargs)
 
     
